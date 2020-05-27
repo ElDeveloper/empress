@@ -53,7 +53,7 @@ define(["glMatrix", "Camera"], function (gl, Camera) {
         this.VERTEX_SIZE = 5;
 
         // sets empress to light mode
-        this.CLR_COL = 1;
+        this.CLR_COL = 0;
 
         // the center of the viewing window in tree coordinates
         this.treeSpaceCenterX = null;

@@ -4,11 +4,21 @@
     <title>Empress</title>
     <link rel='stylesheet' type="text/css"
       href='{{ base_url }}/css/empress.css'>
+
+    <link id="emperor-css" rel="stylesheet" type="text/css" href="{{ emperor_base_url }}/css/emperor.css">
+    <link rel="stylesheet" type="text/css" href="{{ emperor_base_url }}/vendor/css/jquery-ui.min.css">
+    <link rel="stylesheet" type="text/css" href="{{ emperor_base_url }}/vendor/css/slick.grid.min.css">
+    <link rel="stylesheet" type="text/css" href="{{ emperor_base_url }}/vendor/css/spectrum.min.css">
+    <link rel="stylesheet" type="text/css" href="{{ emperor_base_url }}/vendor/css/chosen.min.css">
+    <link rel="stylesheet" type="text/css" href="{{ emperor_base_url }}/vendor/css/jquery.contextMenu.min.css">
+
     <script src='{{ base_url }}/vendor/require-2.1.22.min.js'></script>
+    <script src="{{ emperor_base_url }}/vendor/js/jquery-2.1.4.min.js"></script>
   </head>
   <body>
 
     <!-- The tree -->
+  <div>
     <div id="tree-container">
       <div class="container">
         <canvas class="tree-surface" id="tree-surface">
@@ -26,10 +36,11 @@
 
         <!-- show control panel button -->
         <button id="show-ctrl" title="Show control panel" style="font-size: 10pt; padding: 0 0 3px 3px;" class="hidden">&#9699;</button>
-
       </div>
-
     </div>
+
+    {{ emperor_div }}
+  </div>
 
     <!-- hover box -->
     <div class="hidden" id="hover-box">
@@ -111,7 +122,7 @@
           {{ sample_data | tojson }},
           {{ sample_data_type | tojson }}
         );
-        var empress = new Empress(
+        empress = new Empress(
             tree,
             {{ tree_data | tojson }},
             {{ names_to_keys | tojson }},
@@ -152,4 +163,8 @@
         document.getElementById("loading-screen").classList.add("hidden");
     });
   </script>
+
+  {{ emperor_require_logic }}
+
+
 </html>
