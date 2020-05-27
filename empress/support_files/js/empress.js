@@ -545,16 +545,16 @@ define([
      * @param {Array} rgb - The rgb array which defines the color
      */
     Empress.prototype.colorSampleIDs = function(sIds, rgb) {
-        var tree = this._tree;
-        var obs = this._biom.getObjservationUnionForSamples(sIds);
-        obs = Array.from(this._namesToKeys(obs));
-        obs = this._projectObservations({'samples': new Set(obs)});
-        obs = Array.from(obs['samples']);
+      var tree = this._tree;
+      var obs = this._biom.getObjservationUnionForSamples(sIds);
+      obs = Array.from(this._namesToKeys(obs));
+      obs = this._projectObservations({'samples': new Set(obs)});
+      obs = Array.from(obs['samples']);
 
-        for (var i = 0; i < obs.length; i++) {
-            this._treeData[obs[i]].color = rgb;
-        }
-        this.drawTree();
+      for (var i = 0; i < obs.length; i++) {
+          this._treeData[obs[i]].color = rgb;
+      }
+      this.drawTree();
     };
 
 
