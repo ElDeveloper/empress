@@ -549,5 +549,63 @@ define(["ByteArray"], function (ByteArray) {
         return this.names_.indexOf(name) !== -1;
     };
 
+    function _updateUnrootedCoords(tree, treeIndex, s, x1, y1, a, da) {
+      var maxX = Infinity, minX = Infinity, maxY = Infinity, minY = Infinity;
+
+      // update to refer to length
+      var x2 = x1 + tree.length(treeIndex) * s * Math.sin(a);
+      var y2 = y1 + tree.length(treeIndex) * s * Math.cos(a);
+
+      // TODO set x1, y1, x2, y2, and angle to the node
+
+      // TODO: set the list of nodes
+      var nodes = [];
+
+    }
+
+    // TODO: treeIndex on input should be 1
+    function computeUnrootedLayout(tree, treeIndex, width, height) {
+      // Recall that 360 degrees is equal to (2 * pi) radians.
+      // You can think of this variable as "the maximum angle we can 'give' to
+      // each leaf of the tree".
+      var angle = (2 * Math.PI) / tree.numleaves();
+      var direction, res, xDiff, widthMin, yDiff, heightMin, scale,
+          bestScale = 0, midX, midY, bestArgs;
+
+      for (var i=0; i < 60; i++) {
+          direction = i / (60 * Math.PI);
+
+          // TODO: updateUnrootedCoords doesn't do anything yet
+          res = _updateUnrootedCoords(tree, treeIndex, 1.0, 0, 0, direction,
+                                      angle);
+
+          xDiff = res.maxX - res.minX;
+          widthMin = 0;
+          if (xDiff !== 0) {
+              widthMin = width / xDiff;
+          }
+
+          yDiff = res.maxY - res.minY;
+          heightMin = 0;
+          if (yDiff !== 0) {
+              heightMin = height / yDiff;
+          }
+
+          scale = Math.min(widthMin, heightMin);
+          scale *= 0.95;
+
+          if (scale >= bestScale) {
+              bestScale = scale;
+              midX = width / 2 - ((res.maxX + res.minX) / 2) * scale;
+              midY = height / 2 - ((res.maxY + res.maxY) / 2) * scale;
+
+              bestArgs = [scale, midX, midY, direction, angle];
+          }
+      }
+
+      _updateUnrootedCoords(tree, treeIndex, bestArgs[0], bestArgs[1],
+                            bestArgs[2], bestArgs[3], bestArgs[4]);
+    }
+
     return BPTree;
 });
