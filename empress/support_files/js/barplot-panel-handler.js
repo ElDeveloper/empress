@@ -171,6 +171,10 @@ define([
 
         // To get things started off with, let's add a layer
         this.addLayer();
+
+        if (window.uploadFMModel !== undefined) {
+            window.uploadFMModel.registerObserver(this);
+        }
     }
 
     /**
@@ -326,6 +330,13 @@ define([
             legends.push(...layer.getLegends());
         });
         return legends;
+    };
+
+    BarplotPanel.prototype.updateFMetadata = function(fmCols, uploadCols, metadata) {
+        // TODO: update barplot tabs and reset barplots
+        if (this.enabled && this.layers.length > 0) {
+            this.empress.drawBarplots(this.layers);
+        }
     };
 
     /**
